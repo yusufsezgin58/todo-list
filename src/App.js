@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+
+  let VALUES = []
+
+  const [inputText, setInputText] = useState('')
+  const [values, setValues] = useState(VALUES)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <input placeholder='Add task' value={inputText} onChange={(e) => { setInputText(e.target.value) }} />
+      <button type='button' onClick={() => setValues([...values, { taskName: inputText }])}>ADD</button>
+      <ol type='1'>
+        {
+          values.map((item, index) => {
+            return (
+              <li key={index}>
+                {item.taskName}
+              </li>
+            )
+          })
+        }
+      </ol>
     </div>
   );
 }
